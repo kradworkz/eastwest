@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\UserEmployee', 'user_id');
     } 
 
+    public function specialist()
+    {
+        return $this->hasOne('App\Models\UserSpecialist', 'user_id');
+    } 
+
     public function hasRole($roles)
     {
         foreach ($roles as $role) {
@@ -59,9 +64,11 @@ class User extends Authenticatable
     }
 
     public function scopeNew($query, $request){
-        $user = $query->create(array_merge($request, ['username' => $username, 'password' => bcrypt('dost9ict'), 'role' => 'Teachers']));
+        $username = strstr($request['email'], '@', true);
+        $user = $query->create(array_merge($request, ['username' => $username, 'password' => bcrypt('dost9ict')]));
         $user->profile()->create($request);
-        $user->employee()->create($request);
+        
+        ($request['role'] == 'Teacher') ? $user->employee()->create($request) : $user->specialist()->create($request);
         return $user;
     }
 

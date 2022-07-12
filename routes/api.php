@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Resources\Api\UserResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    $data = $request->user()->profile;
+    $id = $data->id;
+
+    $data = User::with('profile')->with('specialist.municipality.province.region')->where('id',$id)->first();
+    return new UserResource($data);
+});
+
+Route::middleware('auth:sanctum')->group( function () {
+    // Route::resource('tasks', TaskController::class);
 });
 
 Route::post('/login', [App\Http\Controllers\Api\AuthenticationController::class, 'login']);
+// Route::get('/endorsements/{code}', [App\Http\Controllers\Api\EndorsementController::class, 'index']);

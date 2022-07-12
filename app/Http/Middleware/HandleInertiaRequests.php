@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\School;
 use App\Models\LocationRegion;
+use App\Models\LocationProvince;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use App\Http\Resources\UserResource;
@@ -48,6 +49,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'regions' => LocationRegion::all(),
             'schools' => School::all(),
+            'provinces' => LocationProvince::where('region_code','090000000')->get(),
         ]);
     }
 }

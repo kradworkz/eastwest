@@ -6,7 +6,7 @@
             <div class="card-body" :style="{ height: height + 'px' }">
                 <div class="row mb-3">
                     <div class="col-xl-6 col-sm-6 d-inline-block">
-                        <Link href="employees/import">
+                        <Link href="teachers/import">
                             <button type="button" class="btn btn-light waves-effect waves-light me-1"><i class='bx bx-import'></i></button>
                         </Link>
                         <button @click="create" type="button" class="btn btn-danger waves-effect waves-light me-1"><i class='bx bx-plus-medical'></i></button>
@@ -66,7 +66,7 @@
                                     <span v-else class="badge bg-danger fs-11">Inactive</span>
                                 </td>
                                 <td class="text-center">
-                                   <a class="me-3" @click="update(list)">
+                                   <a class="me-3 " @click="update(list)">
                                         <i v-bind:class="(list.is_active == 1) ? 'text-success bx bx-lock-open' : 'text-dark bx bxs-lock'"></i>
                                     </a>
                                     <a class="me-3 text-warning" @click="edit(list)"><i class='bx bx-edit-alt' ></i></a>
@@ -84,15 +84,11 @@
     
             </div>
         </div>
-        <Update @info="message" ref="update"/>
         <Create :schools="schools" @info="message" ref="create"/>
-        <Verify ref="verify"/>
     </div>
 
 </template>
 <script>
-import Update from "./Modals/Update.vue";
-import Verify from "./Modals/Verify.vue";
 import Create from "./Modals/Create.vue";
 import Header from "@/Shared/Header.vue";
 import Pagination from "@/Shared/Pagination.vue";
@@ -100,14 +96,14 @@ import _ from 'lodash';
 
 export default {
     props: ['schools'],
-    components : { Header, Pagination, Create, Verify, Update },
+    components : { Header, Pagination, Create },
     inject:['count3', 'height'],
     data() {
         return {
             currentUrl: window.location.origin,
-            title: "Employees",
+            title: "Teachers",
             items: [
-                {text: "Employee", href: "/",},
+                {text: "Teacher", href: "/",},
                 {text: "Lists",active: true,},
             ],
             lists: [],
@@ -137,6 +133,7 @@ export default {
                 params : {
                     keyword : this.keyword,
                     count: this.count3,
+                    type: 'Teacher',
                     search: true
                 }
             })

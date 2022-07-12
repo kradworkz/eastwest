@@ -1,5 +1,5 @@
 <template>
-    <b-modal v-model="showModal" @ok="create($event)" id="create" size="xl" title="Create Employee" no-close-on-backdrop centered>
+    <b-modal v-model="showModal" @ok="create($event)" size="xl" title="Create Specialist" no-close-on-backdrop centered>
         <div class="row" style="margin-right: 10px; margin-left: 10px;">
             <div class="col-md-3">
                 <myUpload field="img" @crop-success="cropSuccess" v-model="photo.show" :width="500" :height="500"
@@ -71,16 +71,29 @@
                         <div class="col-md-12">
                             <hr class="mb-4">   
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>School: <span v-if="form.errors" v-text="form.errors.school_id" class="haveerror"></span></label>
+                                <label>Porvince: <span v-if="form.errors" v-text="form.errors.province_id" class="haveerror"></span></label>
                                 <Multiselect 
-                                v-model="user.school" 
-                                :options="schools"
+                                @input="onChangeProvince(province.code)"
+                                v-model="province" 
+                                :options="provinces"
                                 :allow-empty="false"
                                 :show-labels="false"
                                 label="name" track-by="id"
-                                placeholder="Select School"/>
+                                placeholder="Select Municipality"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Municipality: <span v-if="form.errors" v-text="form.errors.municipality_code" class="haveerror"></span></label>
+                                <Multiselect 
+                                v-model="user.municipality" 
+                                :options="municipalities"
+                                :allow-empty="false"
+                                :show-labels="false"
+                                label="name" track-by="code"
+                                placeholder="Select Municipality"/>
                             </div>
                         </div>
                     </div>
@@ -95,12 +108,11 @@
 </template>
 
 <script>
-    import DatePicker from 'vue-datepicker-next';
     import 'vue-datepicker-next/index.css';
     import myUpload from 'vue-image-crop-upload/upload-3.vue';
     import Multiselect from '@suadelabs/vue3-multiselect';
     export default {
-        props: ['schools'],
+        props: ['schools', 'provinces'],
         components: { myUpload , Multiselect },
         data() {
             return {
@@ -117,8 +129,11 @@
                     avatar: 'avatar.jpg',
                     img: '',
                     profile_id: '',
-                    school: ''
+                    school: '',
+                    municipality: ''
                 },
+                province: '',
+                municipalities: [],
                 form: {},
                 editable: false,
                 showModal: false,
@@ -144,6 +159,10 @@
                         this.$emit('info', val.data);
                     }
                 },
+            },
+            province(){
+                this.municipality = '';
+                this.fetchMunicipality(this.province.code);
             },
         },
         computed: {
@@ -172,10 +191,11 @@
                     mobile: this.user.mobile,
                     gender: this.user.gender,
                     avatar: this.user.avatar ,
-                    school_id: this.user.school.id,
+                    municipality_code: this.user.municipality.code,
                     profile_id: this.user.profile_id,
                     img: this.user.img,
-                    editable: this.editable
+                    editable: this.editable,
+                    role: 'Specialist'
                 })
 
                 if(!this.editable){
@@ -193,6 +213,14 @@
                         }
                     });
                 }
+            },
+
+            fetchMunicipality($id){
+                axios.get(this.currentUrl + '/municipalities/'+$id)
+                .then(response => {
+                    this.municipalities = response.data.data;
+                })
+                .catch(err => console.log(err));
             },
 
             hide(){

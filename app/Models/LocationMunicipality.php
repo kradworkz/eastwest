@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class LocationMunicipality extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+    protected $primaryKey = 'code';
+    protected $keyType = 'string';
+
+    public function province()
+    {
+        return $this->belongsTo('App\Models\LocationProvince', 'province_code', 'code');
+    }
 }

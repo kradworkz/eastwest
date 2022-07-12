@@ -175,7 +175,8 @@
                     school_id: this.user.school.id,
                     profile_id: this.user.profile_id,
                     img: this.user.img,
-                    editable: this.editable
+                    editable: this.editable,
+                    role: 'Teacher'
                 })
 
                 if(!this.editable){

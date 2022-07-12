@@ -8,6 +8,7 @@ class UserResource extends JsonResource
 {
     public function toArray($request)
     {
+        // return parent::toArray($request);
         return [
             'id' => $this->id,
             'email' => $this->email,
@@ -21,7 +22,9 @@ class UserResource extends JsonResource
             'suffix' => $this->profile->suffix,
             'gender' => $this->profile->gender,
             'mobile' => $this->profile->mobile,
-            'school' => $this->employee,
+            'school' => ($this->role == 'Teacher') ? new SchoolResource($this->employee) : '',
+            'location' => ($this->role == 'Specialist') ? new SchoolResource($this->specialist) : '',
+            // 'school' => $this->employee->school,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

@@ -31,7 +31,8 @@
             create(){
                 axios.put(this.currentUrl + '/users/update', {
                     id: this.user.id,
-                    is_active: (this.user.is_active == 1) ? 0 : 1
+                    is_active: (this.user.is_active == 1) ? 0 : 1,
+                    role: 'Specialist'
                 })
                 .then(response => {
                     this.$emit('info', response.data.data)

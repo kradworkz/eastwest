@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserProfile;
 use App\Models\UserEmployee;
+use App\Models\UserSpecialist;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
@@ -16,7 +17,7 @@ class UserController extends Controller
     {   
         $data = UserResource::collection(
             User::query()
-            ->with('profile')->with('employee.school')
+            ->with('profile')->with('employee.school.municipality.province.region')->with('specialist.municipality.province.region')
             ->when($request->keyword, function ($query, $keyword) {
                 $query->whereHas('profile',function ($query) use ($keyword) {
                     $query->where(\DB::raw('concat(firstname," ",lastname)'), 'LIKE', "%{$keyword}%")
@@ -28,7 +29,7 @@ class UserController extends Controller
             ->whereHas('profile',function ($query){
                 $query->orderBy('lastname','DESC');
             })
-            ->whereNotIn('role',['Super Administrator'])
+            ->where('role',$request->type)
             ->paginate($request->count)
             ->withQueryString()
         );
@@ -67,15 +68,22 @@ class UserController extends Controller
             }else{
                 $data = User::findOrFail($request->id);
                 $data->update($request->except('img','editable'));
-                $employee = UserEmployee::where('user_id',$request->id)->first();
-                $employee->update($request->except('email','firstname','lastname','middlename','suffix','gender','mobile','role','birthday','is_active','img','editable'));
+
+                if($request->role == 'Specialist'){
+                    $employee = UserSpecialist::where('user_id',$request->id)->first();
+                    $employee->update($request->except('email','firstname','lastname','middlename','suffix','gender','mobile','role','birthday','is_active','img','editable'));
+                }else{
+                    $employee = UserEmployee::where('user_id',$request->id)->first();
+                    $employee->update($request->except('email','firstname','lastname','middlename','suffix','gender','mobile','role','birthday','is_active','img','editable'));
+                }
+
                 $profile = UserProfile::where('user_id',$request->id)->first();
                 $profile->update($request->except('email','role','is_active','img','editable'));
                 ($request->img != '') ? $data = $data->image($request->all()) : '';
-                $data = User::findOrFail($request->id);
+                $data = User::with('profile')->with('employee.school.municipality.province.region')->with('specialist.municipality.province.region')->where('id',$request->id)->first();
                 return [
                     'data' => $data,
-                    'message' => 'Employee updated successfully. Thanks',
+                    'message' => $request->role.' updated successfully. Thanks',
                     'type' => 'bxs-check-circle'
                 ];
             }
@@ -93,7 +101,7 @@ class UserController extends Controller
     }
 
     public function show($type){
-        return inertia('Employees/Import');
+        return inertia('Teachers/Import');
     }
 
     public function edit($type,Request $request){

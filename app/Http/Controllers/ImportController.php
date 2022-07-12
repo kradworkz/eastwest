@@ -64,7 +64,7 @@ class ImportController extends Controller
                         'username' => $employee['username'],
                         'avatar' => 'avatar.jpg',
                         'password' => bcrypt('eastwest'),
-                        'role' => 'Teachers',
+                        'role' => 'Teacher',
                         'created_at'	=> now(),
                         'updated_at'	=> now()
                     ];

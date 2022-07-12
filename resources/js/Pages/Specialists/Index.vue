@@ -6,9 +6,6 @@
             <div class="card-body" :style="{ height: height + 'px' }">
                 <div class="row mb-3">
                     <div class="col-xl-6 col-sm-6 d-inline-block">
-                        <Link href="employees/import">
-                            <button type="button" class="btn btn-light waves-effect waves-light me-1"><i class='bx bx-import'></i></button>
-                        </Link>
                         <button @click="create" type="button" class="btn btn-danger waves-effect waves-light me-1"><i class='bx bx-plus-medical'></i></button>
                         <form class="d-inline-block ">
                             <div class="search-box">
@@ -32,7 +29,7 @@
                             <tr class="font-size-11">
                                 <th style="width: 2%;"></th>
                                 <th style="width: 25%;">Name</th>
-                                <th style="width: 23%;" class="text-center">School</th>
+                                <th style="width: 23%;" class="text-center">Designation</th>
                                 <th style="width: 23%;" class="text-center">Contact</th>
                                 <th style="width: 10;" class="text-center">Status</th>
                                 <th style="width: 17%;" class="text-center">Action</th>
@@ -52,10 +49,9 @@
                                     <h5 class="font-size-13 mb-0 text-dark">{{list.lastname}}, {{list.firstname}} {{list.middlename}}</h5>
                                 </td>
                                  <td class="text-center">
-                                    <h5 class="font-size-12 mb-0 text-dark">{{list.school.school.name }}</h5>
-                                    <p class="font-size-12 text-muted mb-0">
-                                        {{list.school.school.municipality.name }}, {{list.school.school.municipality.province.name }}
-                                    </p>
+                                    <h5 class="font-size-12 mb-0 text-dark">
+                                        {{list.location.municipality.name }}, {{list.location.municipality.province.name }}
+                                    </h5>
                                 </td>
                                 <td class="text-center">
                                     <h5 class="font-size-12 mb-0 text-dark">{{list.email}}</h5>
@@ -66,7 +62,7 @@
                                     <span v-else class="badge bg-danger fs-11">Inactive</span>
                                 </td>
                                 <td class="text-center">
-                                   <a class="me-3" @click="update(list)">
+                                   <a class="me-3 " @click="update(list)">
                                         <i v-bind:class="(list.is_active == 1) ? 'text-success bx bx-lock-open' : 'text-dark bx bxs-lock'"></i>
                                     </a>
                                     <a class="me-3 text-warning" @click="edit(list)"><i class='bx bx-edit-alt' ></i></a>
@@ -84,9 +80,9 @@
     
             </div>
         </div>
-        <Update @info="message" ref="update"/>
-        <Create :schools="schools" @info="message" ref="create"/>
         <Verify ref="verify"/>
+        <Update @info="message" ref="update"/>
+        <Create :schools="schools" :provinces="provinces" @info="message" ref="create"/>
     </div>
 
 </template>
@@ -99,15 +95,15 @@ import Pagination from "@/Shared/Pagination.vue";
 import _ from 'lodash';
 
 export default {
-    props: ['schools'],
-    components : { Header, Pagination, Create, Verify, Update },
+    props: ['schools','provinces'],
+    components : { Header, Pagination, Create, Update, Verify },
     inject:['count3', 'height'],
     data() {
         return {
             currentUrl: window.location.origin,
-            title: "Employees",
+            title: "Specialists",
             items: [
-                {text: "Employee", href: "/",},
+                {text: "Specialist", href: "/",},
                 {text: "Lists",active: true,},
             ],
             lists: [],
@@ -137,6 +133,7 @@ export default {
                 params : {
                     keyword : this.keyword,
                     count: this.count3,
+                    type: 'Specialist',
                     search: true
                 }
             })
