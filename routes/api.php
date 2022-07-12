@@ -21,14 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $id = $data->id;
 
     $data = User::with('profile')->with('specialist.municipality.province.region')->where('id',$id)->first();
+    
     $data = new UserResource($data);
-    return $data = [
-        $data
-    ];
+    return response()->json($data);
 });
 
 Route::middleware('auth:sanctum')->group( function () {
-    // Route::resource('tasks', TaskController::class);
+    Route::resource('tasks', TaskController::class);
 });
 
 Route::post('/login', [App\Http\Controllers\Api\AuthenticationController::class, 'login']);
