@@ -21,7 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $id = $data->id;
 
     $data = User::with('profile')->with('specialist.municipality.province.region')->where('id',$id)->first();
-    return new UserResource($data);
+    $data = new UserResource($data);
+    return $data = [
+        $data
+    ];
 });
 
 Route::middleware('auth:sanctum')->group( function () {
