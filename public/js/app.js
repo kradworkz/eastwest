@@ -10151,7 +10151,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
         height: window.innerHeight - 170
       },
       mounted: function mounted() {
-        this.mixinMethod('horizontal');
+        this.mixinMethod('vertical');
       }
     }).use(plugin).use(bootstrap_vue_3__WEBPACK_IMPORTED_MODULE_3__["default"], (vue_toast_notification__WEBPACK_IMPORTED_MODULE_4___default())).component("Link", _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Link).component("Head", _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Head).mount(el); // .config.devtools = true
   },

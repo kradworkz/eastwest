@@ -30,7 +30,7 @@ createInertiaApp({
                     height: window.innerHeight - 170
                 },
                 mounted() {
-                    this.mixinMethod('horizontal');
+                    this.mixinMethod('vertical');
                 }
             })
             .use(plugin)
