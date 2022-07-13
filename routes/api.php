@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\Api\UserResource;
@@ -27,7 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group( function () {
-    Route::resource('tasks', TaskController::class);
+    Route::get('schools', [App\Http\Controllers\SchoolController::class, 'lists']);
 });
 
 Route::post('/login', [App\Http\Controllers\Api\AuthenticationController::class, 'login']);

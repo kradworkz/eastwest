@@ -7,7 +7,18 @@ use Illuminate\Http\Request;
 use App\Http\Resources\DefaultResource;
 
 class SchoolController extends Controller
-{
+{   
+    public function lists(){
+        $data = DefaultResource::collection(
+            School::query()
+            ->orderBy('created_at','DESC')
+            ->paginate(2)
+            ->withQueryString()
+        );
+
+        return $data;
+    }
+
     public function index()
     {
         if($request->search){
