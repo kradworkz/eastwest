@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group( function () {
     Route::get('schools', [App\Http\Controllers\SchoolController::class, 'lists']);
+    Route::get('teachers/{id}', [App\Http\Controllers\SchoolController::class, 'teachers']);
 });
 
 Route::post('/login', [App\Http\Controllers\Api\AuthenticationController::class, 'login']);

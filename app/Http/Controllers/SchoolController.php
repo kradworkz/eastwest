@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\School;
 use Illuminate\Http\Request;
+use App\Models\UserEmployee;
 use App\Http\Resources\DefaultResource;
+use App\Http\Resources\Api\TeacherResource;
 
 class SchoolController extends Controller
 {   
@@ -17,6 +19,17 @@ class SchoolController extends Controller
         );
 
         return $data;
+    }
+
+    public function teachers($id){
+        $data = UserEmployee::query()
+            ->with('user.profile','school')
+            ->where('school_id',$id)
+            ->orderBy('id','DESC')
+            ->paginate(2)
+            ->withQueryString();
+
+        return TeacherResource::collection($data);
     }
 
     public function index()

@@ -24,9 +24,9 @@ class UserResource extends JsonResource
             'lastname' => $this->profile->lastname,
             'middlename' => $this->profile->middlename,
             'mobile' => $this->profile->mobile,
-            'municipality' => $this->specialist->municipality->name,
-            'province' => $this->specialist->municipality->province->name,
-            'region' => $this->specialist->municipality->province->region->name,
+            'municipality' => ($this->role == 'Specialist') ? $this->specialist->municipality->name : '',
+            'province' => ($this->role == 'Specialist') ? $this->specialist->municipality->province->name : '',
+            'region' => ($this->role == 'Specialist') ? $this->specialist->municipality->province->region->name : '',
         ];
     }
 }
