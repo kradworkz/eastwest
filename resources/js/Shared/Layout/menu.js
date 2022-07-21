@@ -39,5 +39,32 @@ export const menuItems = [{
         component: "Schools/Index",
         name: "Schools",
         user: ['Super Administrator'],
-    }
+    },
+    // {
+    //     id: 10,
+    //     label: "Group Leaders",
+    //     icon: "bx-user-circle",
+    //     link: "/group",
+    //     component: "Group/Index",
+    //     name: "Group",
+    //     user: ['Super Administrator'],
+    // },
+    // {
+    //     id: 11,
+    //     label: "Team Leaders",
+    //     icon: "bx-user-circle",
+    //     link: "/team",
+    //     component: "Team/Index",
+    //     name: "Team",
+    //     user: ['Region Leader'],
+    // },
+    // {
+    //     id: 12,
+    //     label: "Loan Specialist",
+    //     icon: "bx-user-circle",
+    //     link: "/specialist",
+    //     component: "Specialist/Index",
+    //     name: "Specialist",
+    //     user: ['Team Leader'],
+    // },
 ];

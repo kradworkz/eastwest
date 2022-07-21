@@ -26,11 +26,11 @@ createInertiaApp({
                 provide: {
                     count: Math.floor((window.innerHeight - 370) / 63),
                     count2: Math.floor(((window.innerHeight - 170) - 170) / 61),
-                    count3: Math.floor(((window.innerHeight - 170) - 130) / 61),
-                    height: window.innerHeight - 170
+                    count3: Math.floor(((window.innerHeight - 170) - 230) / 61),
+                    height: window.innerHeight - 350
                 },
                 mounted() {
-                    this.mixinMethod('vertical');
+                    this.mixinMethod('horizontal');
                 }
             })
             .use(plugin)

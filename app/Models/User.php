@@ -43,14 +43,19 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\UserProfile', 'user_id');
     } 
 
-    public function employee()
+    public function assignment()
     {
-        return $this->hasOne('App\Models\UserEmployee', 'user_id');
+        return $this->hasOne('App\Models\UserAssignment', 'user_id');
     } 
 
-    public function specialist()
+    public function targets()
     {
-        return $this->hasOne('App\Models\UserSpecialist', 'user_id');
+        return $this->hasMany('App\Models\UserTarget', 'user_id');
+    } 
+
+    public function target()
+    {
+        return $this->hasMany('App\Models\UserTarget', 'user_id')->first();
     } 
 
     public function hasRole($roles)
@@ -66,9 +71,10 @@ class User extends Authenticatable
     public function scopeNew($query, $request){
         $username = strstr($request['email'], '@', true);
         $user = $query->create(array_merge($request, ['username' => $username, 'password' => bcrypt('dost9ict')]));
-        $user->profile()->create($request);
+        $user->profile()->create(array_merge($request,['added_by' => \Auth::user()->id]));
+        $user->assignment()->create($request);
         
-        ($request['role'] == 'Teacher') ? $user->employee()->create($request) : $user->specialist()->create($request);
+        // ($request['role'] == 'Teacher') ? $user->employee()->create($request) : $user->specialist()->create($request);
         return $user;
     }
 

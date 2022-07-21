@@ -32,11 +32,11 @@ class SchoolController extends Controller
         return TeacherResource::collection($data);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         if($request->search){
 
-            $data = DefaultResoruce::collection(
+            $data = DefaultResource::collection(
                 School::query()
                 ->when($request->keyword, function ($query, $keyword) {
                     $query->where('name', 'LIKE', "%{$keyword}%");
@@ -48,7 +48,7 @@ class SchoolController extends Controller
 
             return $data;
         }else{
-            return inertia('Schools/Index');
+            return inertia('Modules/Schools/Index');
         }
     }
 

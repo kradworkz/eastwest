@@ -22,9 +22,11 @@
                     </div>
                 </div>
             </form>
-            <button @click="create" type="button" class="btn btn-danger waves-effect waves-light me-1 mt-n1">
-                <i class='bx bx-plus-medical'></i>
-            </button>
+            <Link href="teachers/import">
+                <button type="button" class="btn btn-light waves-effect waves-light me-1 mt-n1">
+                    <i class='bx bx-import'></i>
+                </button>
+            </Link>
         </div>
     </div>
     <div class="card-body" :style="{ height: height + 'px' }">
@@ -48,6 +50,7 @@
                         </td>
                         <td>
                             <h5 class="font-size-13 mb-0 text-dark">{{list.lastname}}, {{list.firstname}} {{list.middlename}}</h5>
+                            <p class="font-size-12 text-muted mb-0">{{list.school.name}}</p>
                         </td>
                           
                         <td class="text-center">
@@ -56,14 +59,10 @@
                         </td>
                         <td class="text-center">
                             <span v-if="list.is_active == 1" class="badge bg-success fs-11">Active</span>
-                            <span v-else class="badge bg-danger fs-11">Inactive</span>
+                            <span v-else class="badge bg-danger fs-11">NTB</span>
                         </td>
                         <td class="text-center">
-                            <a class="me-3" @click="update(list)">
-                                <i v-bind:class="(list.is_active == 1) ? 'text-success bx bx-lock-open' : 'text-dark bx bxs-lock'"></i>
-                            </a>
-                            <a class="me-3 text-warning" @click="edit(list)"><i class='bx bx-edit-alt' ></i></a>
-                                <a class="text-info" @click="verify(list)"><i class='bx bx-mail-send'></i></a>
+                           <button @click="send(list)" type="button" class="btn btn-sm btn-label btn-primary"><i class="bx bx-mail-send label-icon"></i> Form</button>
                         </td>
                     </tr>
                     <tr v-if="lists.length == 0">
@@ -75,29 +74,20 @@
             </table>
         </div>
     </div>
-    <!-- <Create :auth="auth" :regions="regions" ref="create" /> -->
+    <Form ref="send"/>
 </template>
 <script>
     import { Head } from '@inertiajs/inertia-vue3'
     import Pagination from "@/Shared/Pagination.vue";
-    // import Create from './Modal/Create.vue';
+    import Form from './Modal/Form.vue';
     export default {
-        components: { Head, Pagination },
-        inject: ['height'],
+        components: { Head, Pagination, Form },
+        inject: ['height','count3'],
         props: ['auth','regions'],
         data() {
             return {
                 currentUrl: window.location.origin,
-                title: "",
-                items: [{
-                        text: "Group Leader",
-                        href: "/",
-                    },
-                    {
-                        text: "Lists",
-                        active: true,
-                    },
-                ],
+                title: "Teachers",
                 lists: [],
                 meta: {},
                 links: {},
@@ -105,31 +95,18 @@
             }
         },
 
-        computed: {
-            title : function() {
-                if(this.auth.data.role == 'Cluster Leader'){
-                    this.title = 'Group Leader';
-                }else if(this.auth.data.role == 'Group Leader'){
-                    this.title = 'Team Leader';
-                }else if(this.auth.data.role == 'Team Leader'){
-                    this.title = 'Loan Specialist';
-                }else{
-                    this.title = '';
-                }
-                this.fetch();
-                return this.title;
-            },
+        created(){
+            this.fetch();
         },
 
         methods: {
             fetch(page_url){
-                page_url = page_url || '/users';
+                page_url = page_url || '/teachers';
                 axios.get(page_url,{
                     params : {
                         keyword : this.keyword,
                         count: this.count3,
                         search: true,
-                        type: this.title
                     }
                 })
                 .then(response => {
@@ -144,6 +121,10 @@
 
             create() {
                 this.$refs.create.set();
+            },
+
+            send(list){
+                this.$refs.send.set(list);
             }
         }
     }

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\UserProfile;
-use App\Models\UserEmployee;
+use App\Models\Teacher;
 use App\Models\School;
 use Illuminate\Http\Request;
 use App\Imports\EmployeeImport;
@@ -22,23 +20,16 @@ class ImportController extends Controller
         foreach($datas as $data){
             $rows = $data;
             foreach($rows as $row){
-                if($row[4] != ''){
-                   
-
-                    $school = $row[14];
-                    $school_res = School::where('name',$school)->first();
-                    ($school_res != null) ? $school = $school_res->id : $school = 1;
-
+                if($row[3] != ''){
                     $employee[] = [
-                        'username' => $row[4],
-                        'firstname' => $row[5],
-                        'middlename' => $row[6],
-                        'lastname' => $row[7],
+                        'code' => $row[3],
+                        'firstname' => $row[4],
+                        'middlename' => $row[5],
+                        'lastname' => $row[6],
                         'suffix' => '',
-                        'email' => strtolower($row[4]).'@gmail.com',
+                        'email' => strtolower($row[3]).'@gmail.com',
                         'mobile' => '09123456789',
-                        'gender' => 'Male',
-                        'school' => $school,
+                        'gender' => 'Male'
                     ];
                 }
             }
@@ -57,62 +48,35 @@ class ImportController extends Controller
             $duplicate = array();
 
             foreach($employees as $employee){
-                $count = User::where('username',$employee['username'])->count();
+                $count = Teacher::where('code',$employee['code'])->count();
                 if($count == 0){
                     $user = [ 
+                        'code' => $employee['code'],
+                        'firstname' => $employee['firstname'],
+                        'middlename' => $employee['middlename'],
+                        'lastname' => $employee['lastname'],
+                        'suffix' => $employee['suffix'],
                         'email' => $employee['email'],
-                        'username' => $employee['username'],
-                        'avatar' => 'avatar.jpg',
-                        'password' => bcrypt('eastwest'),
-                        'role' => 'Teacher',
+                        'gender' => $employee['gender'],
+                        'mobile' => $employee['mobile'],
+                        'school_id' => rand(1,6),
                         'created_at'	=> now(),
                         'updated_at'	=> now()
                     ];
 
                     \DB::beginTransaction();
-                    $user_model = User::create($user);
+                    $user_model = Teacher::create($user);
 
-                    if($user_model)
-                    {                     
-                        $profile_data = [
-                            'user_id' => $user_model->id,
-                            'firstname' => $employee['firstname'],
-                            'middlename' => $employee['middlename'],
-                            'lastname' => $employee['lastname'],
-                            'gender' => $employee['gender'],
-                            'mobile' => $employee['mobile'],
-                            'created_at'	=> now(),
-                            'updated_at'	=> now()
-                        ];
-
-                        $profile_model = UserProfile::insertOrIgnore($profile_data); 
-
-                        if($profile_model){
-                            $employee_data = [
-                                'user_id' => $user_model->id,
-                                'school_id' => $employee['school'],
-                                'created_at'	=> now(),
-                                'updated_at'	=> now()
-                            ];
-
-                            $employee_model = UserEmployee::insertOrIgnore($employee_data); 
-
-                            if($employee_model){
-                                array_push($success,$employee['username']);
-                                \DB::commit();
-                            }else{
-                                array_push($failed,$employee['username']);
-                                \DB::rollback();
-                            }
-    
-                        }
-                       
+                    if($user_model){
+                        array_push($success,$employee['code']);
+                        \DB::commit();
                     }else{
-                        array_push($failed,$employee['username']);
+                        array_push($failed,$employee['code']);
                         \DB::rollback();
                     }
+                    
                 }else{
-                    array_push($duplicate,$employee['username']);
+                    array_push($duplicate,$employee['code']);
                 }
             }
 

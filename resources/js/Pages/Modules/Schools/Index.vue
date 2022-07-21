@@ -34,30 +34,27 @@
                     <tr class="font-size-11">
                         <th style="width: 2%;"></th>
                         <th style="width: 25%;">Name</th>
-                        <th style="width: 23%;" class="text-center">Contact</th>
-                        <th style="width: 10;" class="text-center">Status</th>
+                        <th style="width: 23%;" class="text-center">Shortcut</th>
                         <th style="width: 17%;" class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="list in lists" v-bind:key="list.id">
                         <td>
-                            <div>
+                            <div class="avatar-xs" v-if="list.avatar == 'avatar.jpg'">
+                                <span class="avatar-title rounded-circle">{{list.name.charAt(0)}}</span>
+                            </div>
+                            <div v-else>
                                 <img class="rounded-circle avatar-xs" :src="currentUrl+'/images/avatars/avatar.jpg'" alt="">
                             </div>
                         </td>
                         <td>
-                            <h5 class="font-size-13 mb-0 text-dark">{{list.lastname}}, {{list.firstname}} {{list.middlename}}</h5>
-                        </td>
-                          
-                        <td class="text-center">
-                            <h5 class="font-size-12 mb-0 text-dark">{{list.email}}</h5>
-                            <p class="font-size-12 text-muted mb-0">{{list.mobile}}</p>
+                            <h5 class="font-size-13 mb-0 text-dark">{{list.name}}</h5>
                         </td>
                         <td class="text-center">
-                            <span v-if="list.is_active == 1" class="badge bg-success fs-11">Active</span>
-                            <span v-else class="badge bg-danger fs-11">Inactive</span>
+                            {{list.shortcut}}
                         </td>
+                       
                         <td class="text-center">
                             <a class="me-3" @click="update(list)">
                                 <i v-bind:class="(list.is_active == 1) ? 'text-success bx bx-lock-open' : 'text-dark bx bxs-lock'"></i>
@@ -75,20 +72,20 @@
             </table>
         </div>
     </div>
-    <!-- <Create :auth="auth" :regions="regions" ref="create" /> -->
+    <Create :auth="auth" :regions="regions" ref="create" />
 </template>
 <script>
     import { Head } from '@inertiajs/inertia-vue3'
     import Pagination from "@/Shared/Pagination.vue";
-    // import Create from './Modal/Create.vue';
+    import Create from './Modal/Create.vue';
     export default {
-        components: { Head, Pagination },
-        inject: ['height'],
+        components: { Head, Pagination, Create },
+        inject: ['height','count3'],
         props: ['auth','regions'],
         data() {
             return {
                 currentUrl: window.location.origin,
-                title: "",
+                title: "Schools",
                 items: [{
                         text: "Group Leader",
                         href: "/",
@@ -105,31 +102,18 @@
             }
         },
 
-        computed: {
-            title : function() {
-                if(this.auth.data.role == 'Cluster Leader'){
-                    this.title = 'Group Leader';
-                }else if(this.auth.data.role == 'Group Leader'){
-                    this.title = 'Team Leader';
-                }else if(this.auth.data.role == 'Team Leader'){
-                    this.title = 'Loan Specialist';
-                }else{
-                    this.title = '';
-                }
-                this.fetch();
-                return this.title;
-            },
+        created(){
+            this.fetch();
         },
 
         methods: {
             fetch(page_url){
-                page_url = page_url || '/users';
+                page_url = page_url || '/schools';
                 axios.get(page_url,{
                     params : {
                         keyword : this.keyword,
                         count: this.count3,
-                        search: true,
-                        type: this.title
+                        search: true
                     }
                 })
                 .then(response => {

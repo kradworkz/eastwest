@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Teacher;
 use App\Models\UserProfile;
-use App\Models\UserEmployee;
-use App\Models\UserSpecialist;
+use App\Models\UserTarget;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\TeacherResource;
 use App\Jobs\EmailNewAccount;
 
 class UserController extends Controller
@@ -17,7 +18,7 @@ class UserController extends Controller
     {   
         $data = UserResource::collection(
             User::query()
-            ->with('profile')->with('employee.school.municipality.province.region')->with('specialist.municipality.province.region')
+            ->with('profile')
             ->when($request->keyword, function ($query, $keyword) {
                 $query->whereHas('profile',function ($query) use ($keyword) {
                     $query->where(\DB::raw('concat(firstname," ",lastname)'), 'LIKE', "%{$keyword}%")
@@ -37,19 +38,20 @@ class UserController extends Controller
         if($request->search){
             return $data;
         }else{
-            return inertia('Employees/Index');
+            return inertia('Modules/User/Index');
         }
     }
 
     public function store(UserRequest $request)
     { 
         $data = \DB::transaction(function () use ($request){
-            return $data = User::new($request->all());
+            $data = User::new($request->all());
+            return new UserResource($data);
         });
 
         return back()->with([
             'message' => 'User created successfully. Thanks',
-            'data' => new UserResource($data),
+            'data' => $data,
             'type' => 'bxs-check-circle'
         ]); 
     }
@@ -68,15 +70,6 @@ class UserController extends Controller
             }else{
                 $data = User::findOrFail($request->id);
                 $data->update($request->except('img','editable'));
-
-                if($request->role == 'Specialist'){
-                    $employee = UserSpecialist::where('user_id',$request->id)->first();
-                    $employee->update($request->except('email','firstname','lastname','middlename','suffix','gender','mobile','role','birthday','is_active','img','editable'));
-                }else{
-                    $employee = UserEmployee::where('user_id',$request->id)->first();
-                    $employee->update($request->except('email','firstname','lastname','middlename','suffix','gender','mobile','role','birthday','is_active','img','editable'));
-                }
-
                 $profile = UserProfile::where('user_id',$request->id)->first();
                 $profile->update($request->except('email','role','is_active','img','editable'));
                 ($request->img != '') ? $data = $data->image($request->all()) : '';
@@ -112,18 +105,29 @@ class UserController extends Controller
         }
     }
 
-    public function roles($request)
-    {       
-        $roles =$request->roles;
-        $data = User::findOrFail($request->id);
-        $data->roles()->sync($roles);
+    public function targets(Request $request)
+    {           
+        $month = date("Y").'-'.date("m").'-1';
+
+        $count = UserTarget::where('month',$month)->where('user_id',$request->id)->count();
+
+        if($count == 0){
+            $data = User::findOrFail($request->id);
+            $data->targets()->create(array_merge($request->all(),['added_by' => \Auth::user()->id, 'month' => $month]));
+
+            return back()->with([
+                'message' => 'Target successfully set. Thanks',
+                'data' => $data,
+                'type' => 'bxs-check-circle'
+            ]); 
+        }else{
+            return back()->with([
+                'message' => 'Target already set for this month',
+                'data' => '',
+                'type' => 'bxs-x-circle'
+            ]); 
+        }
     }
 
-    public function groups($request)
-    {     
-        $groups =$request->groups;
-        $data = User::findOrFail($request->id);
-        $data->groups()->sync($groups);
-    }
 
 }

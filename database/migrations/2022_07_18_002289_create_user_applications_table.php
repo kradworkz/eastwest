@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_specialists', function (Blueprint $table) {
+        Schema::create('user_applications', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('municipality_code')->nullable()->constrained();
-            $table->foreign('municipality_code')->references('code')->on('location_municipalities')->onDelete('cascade');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_specialists');
+        Schema::dropIfExists('user_applications');
     }
 };

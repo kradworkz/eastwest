@@ -1,3 +1,3 @@
 <template>
     TEST
-</template>
+</template> 

@@ -35,6 +35,7 @@
                         <th style="width: 2%;"></th>
                         <th style="width: 25%;">Name</th>
                         <th style="width: 23%;" class="text-center">Contact</th>
+                        <th style="width: 23%;" class="text-center">Targets</th>
                         <th style="width: 10;" class="text-center">Status</th>
                         <th style="width: 17%;" class="text-center">Action</th>
                     </tr>
@@ -42,8 +43,11 @@
                 <tbody>
                     <tr v-for="list in lists" v-bind:key="list.id">
                         <td>
-                            <div>
-                                <img class="rounded-circle avatar-xs" :src="currentUrl+'/images/avatars/avatar.jpg'" alt="">
+                            <div class="avatar-xs" v-if="list.avatar == 'avatar.jpg'">
+                                <span class="avatar-title rounded-circle">{{list.lastname.charAt(0)}}</span>
+                            </div>
+                            <div v-else>
+                                <img class="rounded-circle avatar-xs" :src="currentUrl+'/images/avatars/'+list.avatar" alt="">
                             </div>
                         </td>
                         <td>
@@ -55,6 +59,10 @@
                             <p class="font-size-12 text-muted mb-0">{{list.mobile}}</p>
                         </td>
                         <td class="text-center">
+                            <h5 v-if="(list.target != null) " class="font-size-12 mb-0 text-dark">{{ list.target.engagements.length+' of '+list.target.count }}</h5>
+                            <code v-else class="highlighter-rouge"> not set </code>
+                        </td>
+                        <td class="text-center">
                             <span v-if="list.is_active == 1" class="badge bg-success fs-11">Active</span>
                             <span v-else class="badge bg-danger fs-11">Inactive</span>
                         </td>
@@ -63,7 +71,7 @@
                                 <i v-bind:class="(list.is_active == 1) ? 'text-success bx bx-lock-open' : 'text-dark bx bxs-lock'"></i>
                             </a>
                             <a class="me-3 text-warning" @click="edit(list)"><i class='bx bx-edit-alt' ></i></a>
-                                <a class="text-info" @click="verify(list)"><i class='bx bx-mail-send'></i></a>
+                            <a class="text-info" @click="target(list)"><i class='bx bx-target-lock'></i></a>
                         </td>
                     </tr>
                     <tr v-if="lists.length == 0">
@@ -75,14 +83,16 @@
             </table>
         </div>
     </div>
-    <!-- <Create :auth="auth" :regions="regions" ref="create" /> -->
+    <Create :auth="auth" :regions="regions" ref="create" />
+    <Target ref="target"/>
 </template>
 <script>
     import { Head } from '@inertiajs/inertia-vue3'
     import Pagination from "@/Shared/Pagination.vue";
-    // import Create from './Modal/Create.vue';
+    import Create from './Modal/Create.vue';
+    import Target from './Modal/Target.vue';
     export default {
-        components: { Head, Pagination },
+        components: { Head, Pagination, Create, Target },
         inject: ['height'],
         props: ['auth','regions'],
         data() {
@@ -144,7 +154,12 @@
 
             create() {
                 this.$refs.create.set();
-            }
+            },
+
+            target(list) {
+                this.$refs.target.set(list);
+            },
+
         }
     }
 
