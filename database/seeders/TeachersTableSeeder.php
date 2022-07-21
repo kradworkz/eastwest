@@ -119,7 +119,7 @@ class TeachersTableSeeder extends Seeder
                 'suffix' => NULL,
                 'gender' => 'Male',
                 'mobile' => '09123456789',
-                'email' => '0010008@gmail.com',
+                'email' => 'semaj.torres@gmail.com',
                 'school_id' => 2,
                 'created_at' => '2022-07-20 06:19:26',
                 'updated_at' => '2022-07-20 06:19:26',
