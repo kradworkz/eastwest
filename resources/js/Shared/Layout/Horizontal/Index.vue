@@ -17,13 +17,14 @@
             <div class="main-content" style="margin-top: -40px;">
                 <div class="page-content"  style="margin-bottom: -50px;">
                     <div class="account-pages px-4">
+
                         
                         <Profile />
 
-                        <div class="row g-3">
-                            <div class="col-xl-4">
+                        <div class="row g-3 mt-n4">
+                            <div class="col-xl-3">
                                 <template v-for="item in menuItems" v-bind:key="item.id">
-                                    <div v-if="(item.user.includes('Cluster Leader'))" class="card border shadow-none"  style="margin-bottom: 4px;">
+                                    <div v-if="(item.user.includes($page.props.auth.data.role))" class="card border shadow-none"  style="margin-bottom: 4px;">
                                         <Link :href="item.link" class="text-body" >
                                             <div class="p-1">
                                                 <div class="d-flex mt-1">
@@ -41,10 +42,8 @@
                                     </div>
                                 </template>
                             </div>
-                            <div class="col-xl-8">
-                                <div class="card">
-                                    <slot />
-                                </div>
+                            <div class="col-xl-9">
+                                <slot />
                             </div>
                         </div>
                     </div>

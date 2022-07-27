@@ -24,6 +24,11 @@ class UserProfile extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
+    public function team()
+    {
+        return $this->belongsTo('App\Models\User', 'added_by', 'id');
+    }
+
     public function getFirstnameAttribute($value){
         return ucwords($value);
     }

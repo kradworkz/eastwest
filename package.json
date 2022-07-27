@@ -42,6 +42,7 @@
         "vue-datepicker-next": "^1.0.2",
         "vue-image-crop-upload": "^3.0.3",
         "vue-toast-notification": "^3.0.4",
+        "vue3-apexcharts": "^1.4.1",
         "vue3-loading-overlay": "^0.0.0"
     }
 }

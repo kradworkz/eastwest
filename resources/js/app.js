@@ -6,6 +6,7 @@ import { InertiaProgress } from "@inertiajs/progress";
 
 import BootstrapVue3 from 'bootstrap-vue-3';
 import VueToast from 'vue-toast-notification';
+import VueApexCharts from "vue3-apexcharts";
 
 import Layout from "@/Shared/Layout/Layout";
 import myMixin from "@/Shared/Layout/layouts.mixin";
@@ -35,6 +36,7 @@ createInertiaApp({
             })
             .use(plugin)
             .use(BootstrapVue3, VueToast)
+            .use(VueApexCharts)
             .component("Link", Link)
             .component("Head", Head)
             .mount(el)

@@ -22,8 +22,8 @@ class UsersTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'username' => 'administrator',
-                'email' => 'admin@eastwest.com',
+                'username' => 'cluster',
+                'email' => 'cluster@yahoo.com',
                 'email_verified_at' => '2022-07-20 05:54:50',
                 'password' => '$2y$10$./aBocCZlxVCkQ1Y0gpNT.CEvuc6jIOCesumE5FMR4DENE31EY/em',
                 'avatar' => 'avatar.jpg',

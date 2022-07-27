@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserTarget;
 use App\Models\UserEngagement;
 use App\Models\Teacher;
+use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\TeacherResource;
@@ -17,12 +18,23 @@ class TeacherController extends Controller
 {
     public function index(Request $request)
     {   
+        $municipality_code = \Auth::user()->profile->team->assignments;
+        $municipality_code = $municipality_code[0]['municipality_code'];
+
         $data = TeacherResource::collection(
             Teacher::query()
             ->with('school')
             ->when($request->keyword, function ($query, $keyword) {
                 $query->where(\DB::raw('concat(firstname," ",lastname)'), 'LIKE', "%{$keyword}%")
                 ->orWhere(\DB::raw('concat(lastname," ",firstname)'), 'LIKE', "%{$keyword}%");
+            })
+            ->whereHas('school',function ($query) use ($municipality_code) {
+                $query->where('municipality_code',$municipality_code);
+            })
+            ->when($request->school, function ($query, $school) {
+                $query->whereHas('school',function ($query) use ($school) {
+                    $query->where('id',$school);
+                });
             })
             ->orderBy('lastname','DESC')
             ->paginate($request->count)
@@ -32,7 +44,10 @@ class TeacherController extends Controller
         if($request->search){
             return $data;
         }else{
-            return inertia('Modules/Teachers/Index');
+            $schools = School::where('municipality_code',$municipality_code)->get();
+            return inertia('Modules/Teachers/Index',[
+                'schools' => $schools
+            ]);
         }
     }
 

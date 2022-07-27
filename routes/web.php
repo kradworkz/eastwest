@@ -6,7 +6,7 @@ Route::get('/', function () {return inertia('Welcome');});
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/home', function () {return inertia('Welcome');});
 
 Route::post('/user/import', [App\Http\Controllers\ImportController::class, 'index']);
 Route::post('/user/store', [App\Http\Controllers\ImportController::class, 'store']);
@@ -20,7 +20,7 @@ Route::get('/teachers/import', function () {  return inertia('Modules/Teachers/I
 Route::post('/mail', [App\Http\Controllers\TeacherController::class, 'send']);
 Route::post('/avail', [App\Http\Controllers\TeacherController::class, 'avail']);
 Route::get('/form/{code1}/{code2}', [App\Http\Controllers\TeacherController::class, 'form']);
-
+Route::get('/converted', function () {  return inertia('Modules/Converted/Index'); });
 
 Route::get('/homes', function () {return inertia('Home/Specialist/Home');});
 // Route::get('/schools', function () {return inertia('Home/Specialist/Schools');});

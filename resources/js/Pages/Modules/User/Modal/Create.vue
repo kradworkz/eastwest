@@ -71,13 +71,14 @@
                         <div class="col-md-12">
                             <hr class="mb-4">   
                         </div>
-                        <div class="col-md-4" v-if="auth.data.role == 'Cluster Leader' || auth.data.role == 'Group Leader'">
+                        <div :class="(auth.data.role == 'Cluster Leader') ? 'col-md-12' : 'col-md-4'" v-if="auth.data.role == 'Cluster Leader' || auth.data.role == 'Group Leader'">
                             <div class="form-group">
                                 <label>Region: <span v-if="form.errors" v-text="form.errors.region_code" class="haveerror"></span></label>
                                 <Multiselect 
                                 @input="onChangeProvince(region.code)"
                                 v-model="region" 
-                                :options="regions"
+                                :options="(auth.data.role == 'Group Leader')  ? auth.data.regions : regions"
+                                :multiple="(auth.data.role == 'Cluster Leader') ? true : false "
                                 :allow-empty="false"
                                 :show-labels="false"
                                 label="region" track-by="code"
@@ -156,11 +157,12 @@ export default {
                 smail: '*_~'
             },
             title: '',
-            region: '',
+            region: [],
             province: '',
             municipality: '',
             municipalities: [],
-            provinces: []
+            provinces: [],
+            rs: []
         }
     },
 
@@ -222,7 +224,7 @@ export default {
                 gender: this.user.gender,
                 avatar: this.user.avatar ,
                 profile_id: this.user.profile_id,
-                region_code: this.region.code,
+                region_code: (this.auth.data.role == 'Cluster Leader') ? this.region : this.region.code,
                 municipality_code: this.municipality.code,
                 role: this.title,
                 img: this.user.img,

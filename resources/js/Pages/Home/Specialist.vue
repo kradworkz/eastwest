@@ -1,3 +1,3 @@
 <template>
-    teacher
+specialist
 </template>

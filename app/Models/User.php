@@ -43,9 +43,9 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\UserProfile', 'user_id');
     } 
 
-    public function assignment()
+    public function assignments()
     {
-        return $this->hasOne('App\Models\UserAssignment', 'user_id');
+        return $this->hasMany('App\Models\UserAssignment', 'user_id');
     } 
 
     public function targets()
@@ -70,9 +70,17 @@ class User extends Authenticatable
 
     public function scopeNew($query, $request){
         $username = strstr($request['email'], '@', true);
-        $user = $query->create(array_merge($request, ['username' => $username, 'password' => bcrypt('dost9ict')]));
+        $user = $query->create(array_merge($request, ['username' => $username, 'password' => bcrypt('eastwest')]));
         $user->profile()->create(array_merge($request,['added_by' => \Auth::user()->id]));
-        $user->assignment()->create($request);
+        if($request['role'] == 'Group Leader'){
+            foreach($request['region_code'] as $region){
+                $user->assignments()->create(['region_code' => $region['code']]);
+            }
+        }
+        if($request['role'] == 'Team Leader'){
+            $user->assignments()->create($request);
+        }
+        
         
         // ($request['role'] == 'Teacher') ? $user->employee()->create($request) : $user->specialist()->create($request);
         return $user;

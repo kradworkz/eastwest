@@ -24,7 +24,8 @@ class UserResource extends JsonResource
             'mobile' => $this->profile->mobile,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'target' => new TargetResource($this->target())
-        ];
+            'target' => new TargetResource($this->target()),
+            'regions' => $this->assignments 
+        ]; 
     }
 }

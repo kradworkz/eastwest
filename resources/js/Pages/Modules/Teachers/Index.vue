@@ -1,32 +1,50 @@
 <template>
     <Head :title="title" />
     <div class="card-body border-bottom">
-        <div class="page-title-left" style="margin-left: -20px; margin-top: -15px; margin-bottom: -30px;">
-            <ol class="breadcrumb m-0 font-size-15">
-                <li>
-                    <div class="avatar-xs me-3 mb-n2 mt-n1">
-                        <div class="avatar-title bg-transparent rounded">
-                            <i class="bx bxs-group font-size-24 text-info"></i>
+         <!-- <div class="row">
+            <div class="page-title-left" style="margin-left: -20px; margin-top: -15px;">
+                <ol class="breadcrumb m-0 font-size-15">
+                    <li>
+                        <div class="avatar-xs me-3 mb-n2 mt-n1">
+                            <div class="avatar-title bg-transparent rounded">
+                                <i class="bx bxs-group font-size-24 text-info"></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="breadcrumb-item fw-bold ms-n2">{{ title }}</li>
+                </ol>
+            </div>
+        </div> -->
+        <div class="row mb-n3">
+            <div class="col-xl-8 d-inline-block">
+                <div class="input-group mb-2" ref="www">
+                    <label class="input-group-text bg-light"> <i class='bx bx-search-alt'></i></label>
+                    <input type="text" class="form-control" style="width: 35%;" placeholder="Search..." v-model="keyword" @keyup="fetch()"/>
+                    <select v-model="school" @change="fetch()" class="form-select" :class="(program == null) ? 'text-muted' : ''" style="width: 160px; font-weight: 500;">
+                        <option :value="null" selected>All Schools</option>
+                        <option :value="school" v-for="school in schools" v-bind:key="school.id">{{ school.name }}</option>
+                    </select>
+                    <label style="cursor: pointer;" class="input-group-text bg-light"> <Link href="teachers/import"><i class='bx bxs-graduation'></i></Link></label>
+                </div>
+                <!-- <Link href="teachers/import">
+                    <button type="button" class="btn btn-light waves-effect waves-light me-1 mt-n1">
+                        <i class='bx bx-import'></i>
+                    </button>
+                </Link>
+                <form class="d-inline-block ">
+                    <div class="search-box">
+                        <div class="position-relative">
+                            <input type="text" class="form-control bg-light border-light rounded" placeholder="Search..." v-model="keyword">
+                            <i class='bx bx-search-alt search-icon'></i>
                         </div>
                     </div>
-                </li>
-                <li class="breadcrumb-item fw-bold ms-n2">{{ title }}</li>
-            </ol>
-        </div>
-        <div class="float-end" style="margin-top: -8px; margin-bottom: -10px;">
-            <form class="mt-n1 float-sm-end d-flex align-items-center">
-                <div class="search-box">
-                    <div class="position-relative">
-                        <input type="text" class="form-control bg-light border-light rounded" placeholder="Search...">
-                        <i class="bx bx-search-alt search-icon"></i>
-                    </div>
-                </div>
-            </form>
-            <Link href="teachers/import">
-                <button type="button" class="btn btn-light waves-effect waves-light me-1 mt-n1">
-                    <i class='bx bx-import'></i>
-                </button>
-            </Link>
+                </form> -->
+            </div>
+            <div class="col-xl-4">
+                <ul class="list-inline user-chat-nav text-end mb-0 dropdown">
+                    <Pagination v-if="meta" @fetch="fetch" :links="links" :pagination="meta"/>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="card-body" :style="{ height: height + 'px' }">
@@ -83,7 +101,7 @@
     export default {
         components: { Head, Pagination, Form },
         inject: ['height','count3'],
-        props: ['auth','regions'],
+        props: ['auth','regions','schools'],
         data() {
             return {
                 currentUrl: window.location.origin,
@@ -92,6 +110,7 @@
                 meta: {},
                 links: {},
                 keyword: '',
+                school: null
             }
         },
 
@@ -99,11 +118,22 @@
             this.fetch();
         },
 
+        watch: {
+            keyword(newVal){
+                this.checkSearchStr(newVal)
+            }
+        },
+
         methods: {
+            checkSearchStr: _.debounce(function(string) {
+                this.fetch();
+            }, 300),
+
             fetch(page_url){
                 page_url = page_url || '/teachers';
                 axios.get(page_url,{
                     params : {
+                        school : (this.school ==  null) ? null : this.school.id, 
                         keyword : this.keyword,
                         count: this.count3,
                         search: true,

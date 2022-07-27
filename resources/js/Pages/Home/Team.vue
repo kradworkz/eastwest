@@ -1,3 +1,3 @@
 <template>
-schools
+team
 </template>
