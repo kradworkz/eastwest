@@ -25,44 +25,89 @@ class UserAssignmentsTableSeeder extends Seeder
                 'user_id' => 2,
                 'region_code' => '090000000',
                 'municipality_code' => NULL,
-                'created_at' => '2022-07-20 05:55:27',
-                'updated_at' => '2022-07-20 05:55:27',
+                'created_at' => '2022-07-26 12:31:06',
+                'updated_at' => '2022-07-26 12:31:06',
             ),
             1 => 
             array (
                 'id' => 2,
-                'user_id' => 3,
-                'region_code' => '090000000',
-                'municipality_code' => '097302000',
-                'created_at' => '2022-07-20 05:56:23',
-                'updated_at' => '2022-07-20 05:56:23',
+                'user_id' => 2,
+                'region_code' => '100000000',
+                'municipality_code' => NULL,
+                'created_at' => '2022-07-26 12:31:06',
+                'updated_at' => '2022-07-26 12:31:06',
             ),
             2 => 
             array (
                 'id' => 3,
-                'user_id' => 4,
-                'region_code' => NULL,
+                'user_id' => 2,
+                'region_code' => '110000000',
                 'municipality_code' => NULL,
-                'created_at' => '2022-07-20 05:56:58',
-                'updated_at' => '2022-07-20 05:56:58',
+                'created_at' => '2022-07-26 12:31:06',
+                'updated_at' => '2022-07-26 12:31:06',
             ),
             3 => 
             array (
                 'id' => 4,
-                'user_id' => 5,
-                'region_code' => NULL,
+                'user_id' => 3,
+                'region_code' => '010000000',
                 'municipality_code' => NULL,
-                'created_at' => '2022-07-20 06:21:44',
-                'updated_at' => '2022-07-20 06:21:44',
+                'created_at' => '2022-07-26 12:31:33',
+                'updated_at' => '2022-07-26 12:31:33',
             ),
             4 => 
             array (
                 'id' => 5,
-                'user_id' => 6,
-                'region_code' => NULL,
+                'user_id' => 3,
+                'region_code' => '020000000',
                 'municipality_code' => NULL,
-                'created_at' => '2022-07-20 06:21:56',
-                'updated_at' => '2022-07-20 06:21:56',
+                'created_at' => '2022-07-26 12:31:33',
+                'updated_at' => '2022-07-26 12:31:33',
+            ),
+            5 => 
+            array (
+                'id' => 6,
+                'user_id' => 3,
+                'region_code' => '030000000',
+                'municipality_code' => NULL,
+                'created_at' => '2022-07-26 12:31:33',
+                'updated_at' => '2022-07-26 12:31:33',
+            ),
+            6 => 
+            array (
+                'id' => 7,
+                'user_id' => 4,
+                'region_code' => '050000000',
+                'municipality_code' => NULL,
+                'created_at' => '2022-07-26 12:31:48',
+                'updated_at' => '2022-07-26 12:31:48',
+            ),
+            7 => 
+            array (
+                'id' => 8,
+                'user_id' => 4,
+                'region_code' => '060000000',
+                'municipality_code' => NULL,
+                'created_at' => '2022-07-26 12:31:48',
+                'updated_at' => '2022-07-26 12:31:48',
+            ),
+            8 => 
+            array (
+                'id' => 9,
+                'user_id' => 4,
+                'region_code' => '070000000',
+                'municipality_code' => NULL,
+                'created_at' => '2022-07-26 12:31:48',
+                'updated_at' => '2022-07-26 12:31:48',
+            ),
+            9 => 
+            array (
+                'id' => 10,
+                'user_id' => 5,
+                'region_code' => '090000000',
+                'municipality_code' => '097302000',
+                'created_at' => '2022-07-26 12:49:27',
+                'updated_at' => '2022-07-26 12:49:27',
             ),
         ));
         
