@@ -22,7 +22,8 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="mt-0 mb-n3">
-                                    <p class="mb-0 text-truncate"><i class="bx bx-user-circle text-primary me-1"></i>Team Leaders
+                                    <p class="mb-0 text-truncate"><i
+                                            class="bx bx-user-circle text-primary me-1"></i>Team Leaders
                                     </p>
                                     <h5>4</h5>
                                 </div>
@@ -115,6 +116,178 @@
         </div>
         <div class="col-xl-5">
             <Target />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Latest Transaction</h4>
+                    <div data-v-f045c524="" class="is-loading">
+                        <div data-v-f045c524="" class="preloader-component" style="display: none;">
+                            <div data-v-f045c524="" class="status" style="display: none;">
+                                <div data-v-f045c524="" class="spinner-chase">
+                                    <div data-v-f045c524="" class="chase-dot"></div>
+                                    <div data-v-f045c524="" class="chase-dot"></div>
+                                    <div data-v-f045c524="" class="chase-dot"></div>
+                                    <div data-v-f045c524="" class="chase-dot"></div>
+                                    <div data-v-f045c524="" class="chase-dot"></div>
+                                    <div data-v-f045c524="" class="chase-dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-v-f045c524="" class="table-responsive mb-0">
+                            <table data-v-f045c524="" class="table align-middle table-nowrap">
+                                <thead data-v-f045c524="" class="table-light">
+                                    <tr data-v-f045c524="">
+                                        <th data-v-f045c524="" style="width: 20px;">
+                                            <div data-v-f045c524="" class="form-check font-size-16 align-middle"><input
+                                                    data-v-f045c524="" type="checkbox" id="transactionCheck01"
+                                                    class="form-check-input"><label data-v-f045c524=""
+                                                    for="transactionCheck01" class="form-check-label"></label></div>
+                                        </th>
+                                        <th data-v-f045c524="" class="align-middle">Loan ID</th>
+                                        <th data-v-f045c524="" class="align-middle">Loan Name</th>
+                                        <th data-v-f045c524="" class="align-middle">Date</th>
+                                        <th data-v-f045c524="" class="align-middle">Amount</th>
+                                        <th data-v-f045c524="" class="align-middle">Payment Status</th>
+                                        <th data-v-f045c524="" class="align-middle">Payment Method</th>
+                                        <th data-v-f045c524="" class="align-middle">View Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-v-f045c524="">
+                                    <tr data-v-f045c524="">
+                                        <td data-v-f045c524="">
+                                            <div data-v-f045c524="" class="form-check font-size-16"><input
+                                                    data-v-f045c524="" type="checkbox" id="transactionCheck1"
+                                                    class="form-check-input"><label data-v-f045c524=""
+                                                    for="transactionCheck1" class="form-check-label"></label></div>
+                                        </td>
+                                        <td data-v-f045c524=""><a data-v-f045c524="" href="javascript: void(0);"
+                                                class="text-body fw-bold">#SK2540</a></td>
+                                        <td data-v-f045c524="">Neal Matthews</td>
+                                        <td data-v-f045c524="">07 Oct, 2022</td>
+                                        <td data-v-f045c524="">₱400</td>
+                                        <td data-v-f045c524=""><span data-v-f045c524=""
+                                                class="badge badge-pill badge-soft-success font-size-11">Paid</span>
+                                        </td>
+                                        <td data-v-f045c524=""><i data-v-f045c524=""
+                                                class="fab fa-cc-mastercard me-1"></i> Landbank </td>
+                                        <td data-v-f045c524=""><button data-v-f045c524="" type="button"
+                                                class="btn btn-primary btn-sm btn-rounded"> View Details </button></td>
+                                        <!---->
+                                    </tr>
+                                    <tr data-v-f045c524="">
+                                        <td data-v-f045c524="">
+                                            <div data-v-f045c524="" class="form-check font-size-16"><input
+                                                    data-v-f045c524="" type="checkbox" id="transactionCheck2"
+                                                    class="form-check-input"><label data-v-f045c524=""
+                                                    for="transactionCheck2" class="form-check-label"></label></div>
+                                        </td>
+                                        <td data-v-f045c524=""><a data-v-f045c524="" href="javascript: void(0);"
+                                                class="text-body fw-bold">#SK2541</a></td>
+                                        <td data-v-f045c524="">Jamal Burnett</td>
+                                        <td data-v-f045c524="">07 Oct, 2022</td>
+                                        <td data-v-f045c524="">₱380</td>
+                                        <td data-v-f045c524=""><span data-v-f045c524=""
+                                                class="badge badge-pill badge-soft-success font-size-11 badge-soft-danger">Chargeback</span>
+                                        </td>
+                                        <td data-v-f045c524=""><i data-v-f045c524="" class="fab fa-cc-visa me-1"></i>
+                                            Visa </td>
+                                        <td data-v-f045c524=""><button data-v-f045c524="" type="button"
+                                                class="btn btn-primary btn-sm btn-rounded"> View Details </button></td>
+                                        <!---->
+                                    </tr>
+                                    <tr data-v-f045c524="">
+                                        <td data-v-f045c524="">
+                                            <div data-v-f045c524="" class="form-check font-size-16"><input
+                                                    data-v-f045c524="" type="checkbox" id="transactionCheck3"
+                                                    class="form-check-input"><label data-v-f045c524=""
+                                                    for="transactionCheck3" class="form-check-label"></label></div>
+                                        </td>
+                                        <td data-v-f045c524=""><a data-v-f045c524="" href="javascript: void(0);"
+                                                class="text-body fw-bold">#SK2542</a></td>
+                                        <td data-v-f045c524="">Juan Mitchell</td>
+                                        <td data-v-f045c524="">06 Oct, 2022</td>
+                                        <td data-v-f045c524="">₱384</td>
+                                        <td data-v-f045c524=""><span data-v-f045c524=""
+                                                class="badge badge-pill badge-soft-success font-size-11">Paid</span>
+                                        </td>
+                                        <td data-v-f045c524=""><i data-v-f045c524=""
+                                                class="fab fab fa-cc-paypal me-1"></i> Paypal </td>
+                                        <td data-v-f045c524=""><button data-v-f045c524="" type="button"
+                                                class="btn btn-primary btn-sm btn-rounded"> View Details </button></td>
+                                        <!---->
+                                    </tr>
+                                    <tr data-v-f045c524="">
+                                        <td data-v-f045c524="">
+                                            <div data-v-f045c524="" class="form-check font-size-16"><input
+                                                    data-v-f045c524="" type="checkbox" id="transactionCheck4"
+                                                    class="form-check-input"><label data-v-f045c524=""
+                                                    for="transactionCheck4" class="form-check-label"></label></div>
+                                        </td>
+                                        <td data-v-f045c524=""><a data-v-f045c524="" href="javascript: void(0);"
+                                                class="text-body fw-bold">#SK2543</a></td>
+                                        <td data-v-f045c524="">Barry Dick</td>
+                                        <td data-v-f045c524="">05 Oct, 2022</td>
+                                        <td data-v-f045c524="">₱412</td>
+                                        <td data-v-f045c524=""><span data-v-f045c524=""
+                                                class="badge badge-pill badge-soft-success font-size-11">Paid</span>
+                                        </td>
+                                        <td data-v-f045c524=""><i data-v-f045c524=""
+                                                class="fab fa-cc-mastercard me-1"></i> Landbank </td>
+                                        <td data-v-f045c524=""><button data-v-f045c524="" type="button"
+                                                class="btn btn-primary btn-sm btn-rounded"> View Details </button></td>
+                                        <!---->
+                                    </tr>
+                                    <tr data-v-f045c524="">
+                                        <td data-v-f045c524="">
+                                            <div data-v-f045c524="" class="form-check font-size-16"><input
+                                                    data-v-f045c524="" type="checkbox" id="transactionCheck5"
+                                                    class="form-check-input"><label data-v-f045c524=""
+                                                    for="transactionCheck5" class="form-check-label"></label></div>
+                                        </td>
+                                        <td data-v-f045c524=""><a data-v-f045c524="" href="javascript: void(0);"
+                                                class="text-body fw-bold">#SK2544</a></td>
+                                        <td data-v-f045c524="">Ronald Taylor</td>
+                                        <td data-v-f045c524="">04 Oct, 2022</td>
+                                        <td data-v-f045c524="">₱404</td>
+                                        <td data-v-f045c524=""><span data-v-f045c524=""
+                                                class="badge badge-pill badge-soft-success font-size-11 badge-soft-warning">Refund</span>
+                                        </td>
+                                        <td data-v-f045c524=""><i data-v-f045c524="" class="fab fa-cc-visa me-1"></i>
+                                            Visa </td>
+                                        <td data-v-f045c524=""><button data-v-f045c524="" type="button"
+                                                class="btn btn-primary btn-sm btn-rounded"> View Details </button></td>
+                                        <!---->
+                                    </tr>
+                                    <tr data-v-f045c524="">
+                                        <td data-v-f045c524="">
+                                            <div data-v-f045c524="" class="form-check font-size-16"><input
+                                                    data-v-f045c524="" type="checkbox" id="transactionCheck6"
+                                                    class="form-check-input"><label data-v-f045c524=""
+                                                    for="transactionCheck6" class="form-check-label"></label></div>
+                                        </td>
+                                        <td data-v-f045c524=""><a data-v-f045c524="" href="javascript: void(0);"
+                                                class="text-body fw-bold">#SK2545</a></td>
+                                        <td data-v-f045c524="">Jacob Hunter</td>
+                                        <td data-v-f045c524="">04 Oct, 2022</td>
+                                        <td data-v-f045c524="">₱392</td>
+                                        <td data-v-f045c524=""><span data-v-f045c524=""
+                                                class="badge badge-pill badge-soft-success font-size-11">Paid</span>
+                                        </td>
+                                        <td data-v-f045c524=""><i data-v-f045c524=""
+                                                class="fab fab fa-cc-paypal me-1"></i> Paypal </td>
+                                        <td data-v-f045c524=""><button data-v-f045c524="" type="button"
+                                                class="btn btn-primary btn-sm btn-rounded"> View Details </button></td>
+                                        <!---->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>

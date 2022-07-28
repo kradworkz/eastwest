@@ -28,6 +28,7 @@ createInertiaApp({
                     count: Math.floor((window.innerHeight - 370) / 63),
                     count2: Math.floor(((window.innerHeight - 170) - 170) / 61),
                     count3: Math.floor(((window.innerHeight - 170) - 230) / 61),
+                    count5: Math.floor(((window.innerHeight - 170) - 560) / 61),
                     height: window.innerHeight - 350
                 },
                 mounted() {

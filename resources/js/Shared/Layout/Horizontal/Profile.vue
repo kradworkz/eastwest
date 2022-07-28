@@ -13,14 +13,14 @@
                                         <h5 class="mb-0">{{$page.props.auth.data.firstname}}
                                             {{$page.props.auth.data.lastname}}</h5>
                                         <p class="mb-0">{{ $page.props.auth.data.role}}</p>
-                                        <div>
+                                        <!-- <div>
                                             <span class="badge bg-primary">Primary</span>
                                             <span class="badge bg-success ms-1">Success</span>
                                             <span class="badge bg-info ms-1">Info</span>
                                             <span class="badge bg-warning ms-1">Warning</span>
                                             <span class="badge bg-danger ms-1">Danger</span>
                                             <span class="badge bg-dark ms-1">Dark</span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
