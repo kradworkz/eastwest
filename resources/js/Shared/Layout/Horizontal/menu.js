@@ -6,7 +6,7 @@ export const menuItems = [{
     link: "/",
     component: "Welcome",
     name: "Welcome",
-    user: ['Cluster Leader', 'Group Leader', 'Team Leader'],
+    user: ['Cluster Leader', 'Group Leader', 'Team Leader', 'Loan Specialist'],
 }, {
     id: 10,
     label: "Users",
