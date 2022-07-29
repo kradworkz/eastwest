@@ -17,4 +17,9 @@ class LocationMunicipality extends Model
     {
         return $this->belongsTo('App\Models\LocationProvince', 'province_code', 'code');
     }
+
+    public function assignment()
+    {
+        return $this->hasOne('App\Models\UserAssignment', 'municipality_code');
+    } 
 }

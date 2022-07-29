@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $data = $request->user()->profile;
     $id = $data->id;
 
-    $data = User::with('profile')->with('specialist.municipality.province.region')->where('id',$id)->first();
+    $data = User::where('id',$id)->first();
     
     $data = new UserResource($data);
     return response()->json($data);
@@ -29,7 +29,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group( function () {
     Route::get('schools', [App\Http\Controllers\SchoolController::class, 'lists']);
-    Route::get('teachers/{id}', [App\Http\Controllers\SchoolController::class, 'teachers']);
+    Route::get('teachers/{id}', [App\Http\Controllers\TeacherController::class, 'api']);
+    Route::post('mail', [App\Http\Controllers\TeacherController::class, 'send']);
 });
 
 Route::post('/login', [App\Http\Controllers\Api\AuthenticationController::class, 'login']);

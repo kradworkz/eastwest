@@ -15,4 +15,9 @@ class UserAssignment extends Model
     {
         return $this->belongsTo('App\Models\LocationRegion', 'region_code', 'code');
     }
+
+    public function municipality()
+    {
+        return $this->belongsTo('App\Models\LocationMunicipality', 'municipality_code', 'code');
+    }
 }
