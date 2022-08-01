@@ -116,7 +116,7 @@ class TeacherController extends Controller
         $data->save();
     }
 
-    public function api($id,Request $request){
+    public function api($id,$school = null){
         $user = User::where('id',$id)->first();
         $municipality_code = $user->profile->team->assignments;
         $municipality_code = $municipality_code[0]['municipality_code'];
@@ -124,20 +124,20 @@ class TeacherController extends Controller
         $data = TeacherResource::collection(
             Teacher::query()
             ->with('school')
-            ->when($request->keyword, function ($query, $keyword) {
-                $query->where(\DB::raw('concat(firstname," ",lastname)'), 'LIKE', "%{$keyword}%")
-                ->orWhere(\DB::raw('concat(lastname," ",firstname)'), 'LIKE', "%{$keyword}%");
-            })
+            // ->when($request->keyword, function ($query, $keyword) {
+            //     $query->where(\DB::raw('concat(firstname," ",lastname)'), 'LIKE', "%{$keyword}%")
+            //     ->orWhere(\DB::raw('concat(lastname," ",firstname)'), 'LIKE', "%{$keyword}%");
+            // })
             ->whereHas('school',function ($query) use ($municipality_code) {
                 $query->where('municipality_code',$municipality_code);
             })
-            ->when($request->school, function ($query, $school) {
+            ->when($school, function ($query, $school) {
                 $query->whereHas('school',function ($query) use ($school) {
                     $query->where('id',$school);
                 });
             })
             ->orderBy('lastname','DESC')
-            ->paginate($request->count)
+            ->paginate(10)
             ->withQueryString()
         );
 

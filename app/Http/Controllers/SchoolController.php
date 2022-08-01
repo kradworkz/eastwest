@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\UserEmployee;
@@ -64,5 +65,16 @@ class SchoolController extends Controller
             'data' => new DefaultResource($q),
             'type' => 'bxs-check-circle'
         ]); 
+    }
+
+    
+    public function api(){
+        $id = \Auth::user()->id;
+        $user = User::where('id',$id)->first();
+        $municipality_code = $user->profile->team->assignments;
+        $municipality_code = $municipality_code[0]['municipality_code'];
+
+        $schools = School::where('municipality_code',$municipality_code)->get();
+        return $schools;
     }
 }
