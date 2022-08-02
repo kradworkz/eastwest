@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 Route::get('/provinces/{code}', [App\Http\Controllers\LocationController::class, 'provinces']);
 Route::get('/municipalities/{code}', [App\Http\Controllers\LocationController::class, 'municipalities']);
 
+Route::get('/', [AuthenticatedSessionController::class, 'create']);
 Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

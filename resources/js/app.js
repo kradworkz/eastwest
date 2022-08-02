@@ -43,7 +43,7 @@ createInertiaApp({
             .mount(el)
             // .config.devtools = true
     },
-    title: title => `EastWest | ${title}`
+    title: title => `SPMS | ${title}`
 })
 
 InertiaProgress.init({
