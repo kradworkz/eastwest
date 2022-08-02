@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <p class="text-center">© Kradworkz <i class='bx bxs-heart text-danger'></i> 2022</p>
+        <p class="text-center">© Pitch-i <i class='bx bxs-heart text-danger'></i> 2022</p>
     </div>
 </div>
 </template>
