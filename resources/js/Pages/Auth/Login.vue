@@ -13,7 +13,7 @@
                             </div>
                             <div class="col-10">
                                 <div class="text-primary mt-1">
-                                    <p>Specialists Performance Monitoring System <br />Providing you with world-class service.</p>
+                                    <p>Sales Performance Monitoring System <br />Providing you with world-class service.</p>
                                 </div>
                             </div>
                         </div>

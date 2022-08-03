@@ -2188,7 +2188,7 @@ var _hoisted_5 = {
 };
 var _hoisted_6 = ["onSubmit"];
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"row mb-3\"><div class=\"col-2\"><img src=\"images/dost.png\" alt=\"\" class=\"avatar-sm\"></div><div class=\"col-10\"><div class=\"text-primary mt-1\"><p>Specialists Performance Monitoring System <br>Providing you with world-class service.</p></div></div></div>", 1);
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"row mb-3\"><div class=\"col-2\"><img src=\"images/dost.png\" alt=\"\" class=\"avatar-sm\"></div><div class=\"col-10\"><div class=\"text-primary mt-1\"><p>Sales Performance Monitoring System <br>Providing you with world-class service.</p></div></div></div>", 1);
 
 var _hoisted_8 = {
   "class": "form-group mb-2"
